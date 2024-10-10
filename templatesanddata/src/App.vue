@@ -1,6 +1,6 @@
 <template>
   <div class="bg-primary text-white text-center m-2 p-3">
-    <h3>Product: {{ name }}</h3>
+    <h3>Product: <span v-text="name"></span></h3>
   </div>
   <button v-on:click="handleClick" class="btn btn-primary">
     Press mee
