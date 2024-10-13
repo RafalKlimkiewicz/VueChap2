@@ -1,8 +1,21 @@
 <template>
-  <div class="container-fluid text-center">
-    <div class="bg-primary text-white text-center m-2 p-3">
-      <h3 v-bind:text-content.prop="textContent" >Product: {{ name }}</h3>
-    </div>
+  <div class="container-fluid">
+    <h2 class="bg-primary text-white text-center p-3">Products</h2>
+    <table class="table table-sm table-bordered table-scripted text-left">
+      <tr>
+        <th>Index</th>
+        <th>Name</th>
+        <th>Price</th>
+      </tr>
+      <tbody>
+        <tr v-for="(p, i) in products" v-bind:key="p.name" v-bind:odd="i % 2 == 0">
+          <td> {{  i+ 1 }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.price | currency }}</td>
+        </tr>
+      </tbody>
+      
+    </table>
     <button v-on:click="handleClick" class="btn btn-primary">
       Press mee
     </button>
@@ -14,28 +27,35 @@ export default {
   name: 'MyComponent',
   data: function () {
     return {
-      name: "Product_Name",
-      highlight: false,
+      products:[
+        { name: "Kajak", price: 275},
+        { name: "Kamizelka", price: 48.95},
+        { name: "Piłka", price: 19.50},
+        { name: "Kostka", price: 119.50},
+        { name: "Kołek", price: 33.50},
+        { name: "Pachołek", price: 99.99},
+      ]
     }
   },
   computed:{
-    textContent(){
-      return this.highlight ? "highlight!" :`Product ${this.name}`;
-    }
   },
   methods: {
     handleClick() {
-      this.highlight = !this.highlight;
+      //this.products.push(this.products.shift());
+      this.products = this.products.filter( p => p.price > 50 );
+    }
+  },
+  filters: {
+    currency(value){
+      return new Intl.NumberFormat("pl-PL", {style: "currency", currency: "PLN"}).format(value);
     }
   }
 }
 </script>
 <style>
-[data-size=big] {
-  font-size: 40pt;
-}
+#tagged {background-color: coral;}
 
-[data-size=small] {
-  font-size: 20pt;
+[odd] {
+  background-color: lightblue;
 }
 </style>
