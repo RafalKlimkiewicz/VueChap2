@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid text-center">
     <div class="bg-primary text-white text-center m-2 p-3">
-      <h3 v-bind="arrValues" >Product: {{ name }}</h3>
+      <h3 v-bind:text-content.prop="textContent" >Product: {{ name }}</h3>
     </div>
     <button v-on:click="handleClick" class="btn btn-primary">
       Press mee
@@ -19,14 +19,8 @@ export default {
     }
   },
   computed:{
-    arrValues(){
-      return {
-        class: this.highlight ? ["bg-light", "text-dark"] : [],
-        style:{
-          border: this.highlight ? "5px solid red" : ""
-        },
-        "data-size": this.highlight ? "big" : "small"
-      }
+    textContent(){
+      return this.highlight ? "highlight!" :`Product ${this.name}`;
     }
   },
   methods: {
