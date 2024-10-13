@@ -1,24 +1,8 @@
 <template>
   <div class="container-fluid text-center">
     <div class="bg-primary text-white text-center m-2 p-3">
-      <h3>Product: </h3>
-      <span v-text="fragment"></span>
-      <span v-html="fragment"></span>
-      <ul class="text-left">
-        <li>List element:</li>
-        <li v-if="showElements"> 
-          {{ name }}
-          <!-- 2nd way -->
-          <span v-text="name"></span> 
-        </li>
-        <li v-if="showElements">{{ price }}</li>
-        <template v-if="showElements">
-          <li> {{ name }} interpolation <span v-text="name"></span>  inside template</li>
-          <li>{{ price }} interpolation inside template</li>
-        </template>
-        <li>other element </li>
-        <li>other element </li>
-      </ul>
+      <h3 v-if="showElements">Product: {{ name }}</h3>
+      <h3 v-else>Price: {{ price }}</h3>
     </div>
     <button v-on:click="handleClick" class="btn btn-primary">
       Press mee
@@ -31,7 +15,7 @@ export default {
   name: 'MyComponent',
   data: function () {
     return {
-      name: "ProdName",
+      name: "Product_Name",
       fragment: `<div class="form-group"> Password <input class="form-control" /> </div>`,
       price : 275,
       showElements: true,
