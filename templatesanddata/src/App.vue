@@ -8,6 +8,13 @@
         <th>Price</th>
       </tr>
       <tbody>
+        <!-- <template v-for="(p, i) in products">
+          <tr v-bind:key="p.name" v-bind:odd="i % 2 == 0">
+            <td> {{  i+ 1 }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.price | currency }}</td>
+          </tr>
+        </template> -->
         <tr v-for="(p, i) in products" v-bind:key="p.name" v-bind:odd="i % 2 == 0">
           <td> {{  i+ 1 }}</td>
           <td>{{ p.name }}</td>
