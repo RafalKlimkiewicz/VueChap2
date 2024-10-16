@@ -3,22 +3,11 @@
     <h2 class="bg-primary text-white text-center p-3">Products</h2>
     <table class="table table-sm table-bordered table-scripted text-left">
       <tr>
-        <th>Index</th>
-        <th>Key</th>
         <th>Name</th>
         <th>Price</th>
       </tr>
       <tbody>
-        <!-- <template v-for="(p, i) in products">
-          <tr v-bind:key="p.name" v-bind:odd="i % 2 == 0">
-            <td> {{  i+ 1 }}</td>
-            <td>{{ p.name }}</td>
-            <td>{{ p.price | currency }}</td>
-          </tr>
-        </template> -->
-        <tr v-for="(p, key, i) in products" v-bind:key="p.name">
-          <td> {{ i + 1 }}</td>
-          <td> {{ key }}</td>
+        <tr v-for="p in pageItems" v-bind:key="p.name">
           <td>{{ p.name }}</td>
           <td>{{ p.price | currency }}</td>
         </tr>
@@ -27,9 +16,10 @@
     </table>
     <div class="text-center">
       <!-- eslint-disable-next-line vue/require-v-for-key -->
-       <button v-for="i in 5" v-on:click="handleClick(i)" class="btn btn-primary m-1">
+      <button v-for="i in pageCount" v-on:click="selectPage(i)" class="btn btn-secondary m-1"
+        v-bind:class="{ 'bg-primary': currentPage == i }">
         {{ i }}
-       </button>
+      </button>
     </div>
   </div>
 </template>
@@ -41,17 +31,37 @@ export default {
   name: 'MyComponent',
   data: function () {
     return {
-      products: {
-        "Kajak": { name: "Kajak", price: 275 },
-        22: { name: "Kamizelka", price: 48.95 },
-        3: { name: "Piłka", price: 19.50 },
-        "4": { name: "Kostka", price: 119.50 },
-      }
+      pageSize: 3,
+      currentPage: 1,
+      products: [
+        { name: "Kajak", price: 275 },
+        { name: "Kamizelka", price: 48.95 },
+        { name: "Piłka", price: 19.50 },
+        { name: "Kostka", price: 119.50 },
+        { name: "a", price: 321.50 },
+        { name: "b", price: 55.50 },
+        { name: "c", price: 1.50 },
+        { name: "d", price: 1111.50 },
+        { name: "e", price: 11119.50 },
+        { name: "f", price: 222.50 },
+        { name: "g", price: 333.50 },
+        { name: "h", price: 11449.50 }
+      ]
     }
   },
   computed: {
+    pageCount() {
+      return Math.ceil(this.products.length / this.pageSize);
+    },
+    pageItems() {
+      let start = (this.currentPage - 1) * this.pageSize;
+      return this.products.slice(start, start + this.pageSize);
+    }
   },
   methods: {
+    selectPage(page){
+      this.currentPage = page;
+    },
     handleClick() {
       //this.products.push(this.products.shift());
       //this.products = this.products.filter( p => p.price > 50 );
