@@ -15,6 +15,10 @@
 
     </table>
     <div class="text-center">
+      <button class="btn btn-secondary m-1" v-on:click="toggleSort" v-bind:class="{ 'bg-primary': sort }">Enable
+        sorting</button>
+      <button class="btn btn-secondary m-1" v-on:click="toggleFilter" v-bind:class="{ 'bg-primary': filter }">Enable
+        filtering</button>
       <!-- eslint-disable-next-line vue/require-v-for-key -->
       <button v-for="i in pageCount" v-on:click="selectPage(i)" class="btn btn-secondary m-1"
         v-bind:class="{ 'bg-primary': currentPage == i }">
@@ -25,14 +29,14 @@
 </template>
 
 <script>
-import Vue from 'vue';
-
 export default {
   name: 'MyComponent',
   data: function () {
     return {
       pageSize: 3,
       currentPage: 1,
+      filter: false,
+      sort: false,
       products: [
         { name: "Kajak", price: 275 },
         { name: "Kamizelka", price: 48.95 },
@@ -51,24 +55,29 @@ export default {
   },
   computed: {
     pageCount() {
-      return Math.ceil(this.products.length / this.pageSize);
+      return Math.ceil(this.dataItems.length / this.pageSize);
     },
     pageItems() {
       let start = (this.currentPage - 1) * this.pageSize;
-      return this.products.slice(start, start + this.pageSize);
+      return this.dataItems.slice(start, start + this.pageSize);
+    },
+    dataItems() {
+      let data = this.filter ? this.products.filter(p => p.price > 400) : this.products;
+
+      return this.sort ? data.concat().sort((p1, p2) => p2.price - p1.price) : data;
     }
   },
   methods: {
-    selectPage(page){
+    selectPage(page) {
       this.currentPage = page;
     },
-    handleClick() {
-      //this.products.push(this.products.shift());
-      //this.products = this.products.filter( p => p.price > 50 );
-
-      //this.products[1] = { name: "New item", price: 100}; //without change
-      Vue.set(this.products, 5, { name: "New item - Vue set", price: 100 })
-
+    toggleFilter() {
+      this.filter = !this.filter;
+      this.currentPage = 1;
+    },
+    toggleSort() {
+      this.sort = !this.sort;
+      this.currentPage = 1;
     }
   },
   filters: {
