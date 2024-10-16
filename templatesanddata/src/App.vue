@@ -25,9 +25,12 @@
       </tbody>
 
     </table>
-    <button v-on:click="handleClick" class="btn btn-primary">
-      Press mee
-    </button>
+    <div class="text-center">
+      <!-- eslint-disable-next-line vue/require-v-for-key -->
+       <button v-for="i in 5" v-on:click="handleClick(i)" class="btn btn-primary m-1">
+        {{ i }}
+       </button>
+    </div>
   </div>
 </template>
 
