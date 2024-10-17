@@ -26,6 +26,12 @@ export default {
   name: 'MyComponent',
   data: function () {
     return {
+      buttonEvents:{
+        click: this.handleClick,
+        mousemove: this.handleMouseEvent,
+        mouseleave: this.handleMouseEvent,
+
+      },
       message: "Ready",
       names: ["Kajak", "Lifejet", "Foot ball", "Stadium"]
     }
