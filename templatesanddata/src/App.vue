@@ -11,9 +11,7 @@
         <td>{{ index }}</td>
         <td>{{ name }}</td>
         <td>
-          <button class="btn btn-sm bg-primary text-white" v-on:click="handleClick(name)"
-            v-on:mousemove="handleMouseEvent(name, $event)"
-            v-on:mouseleave="handleMouseEvent(name, $event)">Select</button>
+          <button class="btn btn-sm bg-primary text-white" v-on="buttonEvents" v-bind:data-name="name">Select</button>
         </td>
       </tr>
     </table>
@@ -37,10 +35,12 @@ export default {
     }
   },
   methods: {
-    handleClick(name) {
+    handleClick($event) {
+      let name = $event.target.dataset.name;
       this.message = `Select: ${name}`;
     },
-    handleMouseEvent(name, $event) {
+    handleMouseEvent($event) {
+      let name = $event.target.dataset.name;
       if ($event.type == "mousemove") {
         this.message = `Ruch w ${name} ${this.counter++}`;
       }else{
