@@ -1,24 +1,24 @@
 <template>
   <div class="container-fluid">
     <div class="bg-info m-2 p-2 text-white">
-      <div> Value: {{ dataValue }}</div>
-      <div> Other Value: {{ otherValue }}</div>
+      <div>Name: {{ name }}</div>
+      <div>Has admin access: {{ hasAdminAccess }}</div>
+      <div>Password: {{ password }}</div>
+      <div>Details: {{ details }}</div>
     </div>
     <div class="bg-primary m-2 p-2 text-white">
-      <div class="form-check">
-        <label class="form-check-label">
-          <input v-model="dataValue" class="form-check-input" type="checkbox" />
-          Data values
-        </label>
+      <div class="form-group">
+        <label>Name</label>
+        <input v-model="name" class="form-control"/>
       </div>
-    </div>
-    <div class="bg-primary m-2 p-2">
-      <input v-model="otherValue" type="text" class="form-control" />
-    </div>
-    <div class="text-center m-2">
-      <button class="btn btn-secondary" v-on:click="reset">
-        Reset
-      </button>
+      <div class="form-group">
+        <label>Name</label>
+        <input v-model="password" type="password" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Szczegóły</label>
+        <textarea v-model="details" class="form-control" />
+      </div>
     </div>
   </div>
 </template>
@@ -28,22 +28,11 @@ export default {
   name: 'MyComponent',
   data: function () {
     return {
-      dataValue: false,
-      otherValue: "",
+      name: "Rafal",
+      password: "password",
+      details: "Has administrator privileges",
+      hasAdminAccess: false,
     }
-  },
-  methods: {
-    reset() {
-      this.dataValue = false;
-      this.otherValue = "";
-    },
-    // handleChange($event) {
-    //   if ($event.target.type == "checkbox") {
-    //     this.dataValue = $event.target.checked;
-    //   } else {
-    //     this.otherValue = $event.target.value;
-    //   }
-    // }
   }
 }
 </script>
