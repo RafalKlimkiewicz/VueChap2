@@ -1,23 +1,13 @@
 <template>
   <div class="container-fluid">
     <div class="bg-info m-2 p-2 text-white">
-      <div>Name: {{ name }}</div>
+      <div>Amout: {{ amount }}, Amout + 10 = {{ amount + 10 }}</div>
     </div>
     <div class="bg-primary m-2 p-2 text-white">
       <div class="form-group">
-        <label>Selected names</label>
-        <select class="form-control" v-model="name">
-          <option value="all">All</option>
-          <option v-for="n in allNames" v-bind:key="n" v-bind:value="n">
-            Only {{ n }}
-          </option>
-        </select>
-        </div>
-
-      <!-- <div class="form-check" v-for="n in allNames" v-bind:key="n">
-        <input class="form-check-input" type="radio" v-model="name" v-bind:value="n" />
-        <label class="form-check-label">{{ n }}</label>
-      </div> -->
+        <label>Amout</label>
+        <input v-model.number.lazy="amount" type="number" class="form-control" />
+      </div>
     </div>
   </div>
 </template>
@@ -27,8 +17,7 @@ export default {
   name: 'MyComponent',
   data: function () {
     return {
-      allNames: ["Rafal", "Janek", "Alicja", "Bobek"],
-      name: "Bartek"
+      amount: 100
     }
   }
 }
