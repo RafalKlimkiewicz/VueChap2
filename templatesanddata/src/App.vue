@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+    <div>Name: **{{ name }}**</div>
     <div class="bg-info m-2 p-2 text-white">
       <div>Amout: {{ amount }}, Amout + 10 = {{ amount + 10 }}</div>
     </div>
@@ -7,6 +8,10 @@
       <div class="form-group">
         <label>Amout</label>
         <input v-model.number.lazy="amount" type="number" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Name</label>
+        <input v-model.trim="name" type="text" class="form-control" />
       </div>
     </div>
   </div>
@@ -17,6 +22,7 @@ export default {
   name: 'MyComponent',
   data: function () {
     return {
+      name: "    BOBO   ",
       amount: 100
     }
   }
