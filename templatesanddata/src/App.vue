@@ -4,10 +4,20 @@
       <div>Name: {{ name }}</div>
     </div>
     <div class="bg-primary m-2 p-2 text-white">
-      <div class="form-check" v-for="n in allNames" v-bind:key="n">
+      <div class="form-group">
+        <label>Selected names</label>
+        <select class="form-control" v-model="name">
+          <option value="all">All</option>
+          <option v-for="n in allNames" v-bind:key="n" v-bind:value="n">
+            Only {{ n }}
+          </option>
+        </select>
+        </div>
+
+      <!-- <div class="form-check" v-for="n in allNames" v-bind:key="n">
         <input class="form-check-input" type="radio" v-model="name" v-bind:value="n" />
         <label class="form-check-label">{{ n }}</label>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
