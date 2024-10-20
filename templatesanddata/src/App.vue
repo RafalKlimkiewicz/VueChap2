@@ -3,21 +3,23 @@
     <div class="bg-info m-2 p-2 text-white">
       <div>Name: {{ name }}</div>
       <div>Has admin access: {{ hasAdminAccess }}</div>
-      <div>Password: {{ password }}</div>
-      <div>Details: {{ details }}</div>
     </div>
     <div class="bg-primary m-2 p-2 text-white">
-      <div class="form-group">
-        <label>Name</label>
-        <input v-model="name" class="form-control"/>
+      <div class="form-check">
+        <input type="radio" v-model="name" value="Janek" class="form-check-input" />
+        <label class="form-check-label">Janek</label>
       </div>
-      <div class="form-group">
-        <label>Name</label>
-        <input v-model="password" type="password" class="form-control" />
+      <div class="form-check">
+        <input type="radio" v-model="name" value="Alicja" class="form-check-input" />
+        <label class="form-check-label">Alicja</label>
       </div>
-      <div class="form-group">
-        <label>Szczegóły</label>
-        <textarea v-model="details" class="form-control" />
+      <div class="form-check">
+        <input type="radio" v-model="name" value="Bodzio" class="form-check-input" />
+        <label class="form-check-label">Bodzio</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" v-model="hasAdminAccess" class="form-check-input" />
+        <label class="form-check-label">Has admin access?</label>
       </div>
     </div>
   </div>
@@ -29,9 +31,7 @@ export default {
   data: function () {
     return {
       name: "Rafal",
-      password: "password",
-      details: "Has administrator privileges",
-      hasAdminAccess: false,
+      hasAdminAccess: true,
     }
   }
 }
