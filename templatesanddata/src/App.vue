@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid">
-    <div id="outer-element" class="bg-primary p-4 text-white h3" v-on:click.capture="handleClick">
+    <div id="outer-element" class="bg-primary p-4 text-white h3" v-on:click.stop="handleClick">
       Outer element
-      <div id="middle-element" class="bg-secondary p-4" v-on:click.self="handleClick">
+      <div id="middle-element" class="bg-secondary p-4" v-on:click="handleClick">
         Element middle
         <div id="inner-element" class="bg-info p-4" v-on:click="handleClick">
           Innet elementr
