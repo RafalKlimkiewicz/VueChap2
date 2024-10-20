@@ -7,13 +7,13 @@
     <div class="bg-primary m-2 p-2 text-white">
       <div class="form-check">
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" v-on:change="handleChange" v-bind:checked="dataValue" />
+          <input v-model="dataValue" class="form-check-input" type="checkbox" />
           Data values
         </label>
       </div>
     </div>
     <div class="bg-primary m-2 p-2">
-      <input type="text" class="form-control" v-on:input="handleChange" v-bind:value="otherValue" />
+      <input v-model="otherValue" type="text" class="form-control" />
     </div>
     <div class="text-center m-2">
       <button class="btn btn-secondary" v-on:click="reset">
@@ -37,13 +37,13 @@ export default {
       this.dataValue = false;
       this.otherValue = "";
     },
-    handleChange($event) {
-      if ($event.target.type == "checkbox") {
-        this.dataValue = $event.target.checked;
-      } else {
-        this.otherValue = $event.target.value;
-      }
-    }
+    // handleChange($event) {
+    //   if ($event.target.type == "checkbox") {
+    //     this.dataValue = $event.target.checked;
+    //   } else {
+    //     this.otherValue = $event.target.value;
+    //   }
+    // }
   }
 }
 </script>
