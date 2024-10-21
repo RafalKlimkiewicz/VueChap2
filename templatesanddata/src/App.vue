@@ -1,39 +1,39 @@
 <template>
   <div class="container-fluid">
-    <div class="m-2 p-2 text-white" v-bind:class="dataValue">
-      <div>Value: {{ dataValue }}</div>
+    <div class="bg-primary m-2 p-2 text-white">
+      Name: {{ name }}, Category: {{ category }}, Price: {{ price }}
     </div>
 
-    <div class="form-check m-2">
-      <label class="form-check-label">
-        <input v-model="dataValue" type="checkbox" v-bind:true-value="darkColor" v-bind:false-value="lightColor"
-          class="form-check-input" />
-        Dark Color
-      </label>
+    <div class="bg-danger text-white my-2 p-2" v-if="errors">
+      <h5>Errors:</h5>
+      <ul>
+        <template v-for="(errors) in validationErrors">
+          <li v-for="error in errors" v-bind:key="error"> {{ error }}</li>
+        </template>
+      </ul>
     </div>
 
-    <div class="form-group m-2 p-2 bg-secondary">
-      <label>Color</label>
-      <select v-model="dataValue" class="form-control">
-        <option v-bind:value="darkColor">Dark Color</option>
-        <option v-bind:value="lightColor">Light Color</option>
-      </select>
-    </div>
+    <form v-on:submit.prevent="handleSubmit">
+      <div class="form-group">
+        <label>Name</label>
+        <input v-model="name" class="form-control" />
+      </div>
 
-    <div class="form-check-inline m-2">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" v-model="dataValue" v-bind:value="darkColor" />
-        Dark Color
-      </label>
-    </div>
+      <div class="form-group">
+        <label>Category</label>
+        <input v-model="category" class="form-control" />
+      </div>
 
-    <div class="form-check-inline m-2">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" v-model="dataValue" v-bind:value="lightColor" />
-        Light color
-      </label>
+      <div class="form-group">
+        <label>Price</label>
+        <input v-model.number="price" type="number" class="form-control" />
+      </div>
 
-    </div>
+      <div class="text-center">
+        <button class="btn btn-primary" type="submit">Send</button>
+      </div>
+    </form>
+
   </div>
 </template>
 
@@ -42,9 +42,14 @@ export default {
   name: 'MyComponent',
   data: function () {
     return {
-      darkColor: "bg-primary",
-      lightColor: "bg-info",
-      dataValue: "bg-info"
+      name: "",
+      category: "",
+      price: 0
+    }
+  },
+  methods: {
+    handleSubmit() {
+      console.log(`Sent form : ${this.name} ${this.category} ${this.price}`);
     }
   }
 }
