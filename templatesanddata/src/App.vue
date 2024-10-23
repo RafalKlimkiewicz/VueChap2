@@ -48,8 +48,14 @@ export default {
       name: "",
       category: "",
       price: 0,
-      validationErrors: {}
+      validationErrors: {},
+      hasSubmitted: false
     }
+  },
+  watch: {
+    name(value) { this.validateWatch("name", value)},
+    category(value) { this.validateWatch("category", value)},
+    price(value) { this.validateWatch("price", value)},
   },
   computed: {
     errors() {
@@ -57,6 +63,11 @@ export default {
     }
   },
   methods: {
+    validateWatch(propertyName, value){
+      if(this.hasSubmitted){
+        this.validate(propertyName, value);
+      }
+    },
     validate(propertyName, value) {
       let errors = [];
 
@@ -80,6 +91,7 @@ export default {
       return this.errors;
     },
     handleSubmit() {
+      this.hasSubmitted = true;
       if (this.validateAll()) {
         console.log(`Sent form : ${this.name} ${this.category} ${this.price}`);
       }
