@@ -1,0 +1,7 @@
+npm uninstall -g @vue/cli
+npm install -g vue-cli@2
+
+npm install -g @vue/cli -> then choose 2
+
+npm install
+npm run dev
