@@ -68,8 +68,8 @@ export default {
       handler: function (newValue, oldValue) {
         console.log(`watcher-immediate: from ${oldValue} to ${newValue}`);
       }, 
-      //immediate: true, //before create() and before beforeUpdate()
-      deep: true, //before beforeUpdate()
+      //immediate: true, //after configuration watch, before create() and before beforeUpdate()  
+      deep: true, //watch all properties inside, not only defined, before beforeUpdate()
     }
 
   }
