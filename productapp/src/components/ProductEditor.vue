@@ -1,33 +1,38 @@
 <template>
     <div>
-        <editor-field label="ID" editorFor="id"/>
-        <editor-field label="Name" editorFor="name"/>
-        <editor-field label="Price" editorFor="price"/>
-        <div>
+        <div class="form-group">
+            <label>id</label>
+            <input class="form-control" v-model="product.id" />
+        </div>
+        <div class="form-group">
+            <label>name</label>
+            <input class="form-control" v-model="product.name" />
+        </div>
+        <div class="form-group">
+            <label>category</label>
+            <input class="form-control" v-model="product.category" />
+        </div>
+        <div class="form-group">
+            <label>price</label>
+            <input class="form-control" v-model="product.price" />
+        </div>
 
+        <div class="text-center">
             <button class="btn btn-primary" v-on:click="save">
                 {{ editing ? "Save" : "Create" }}
             </button>
             <button class="btn btn-secondary" v-on:click="cancel">Cancel</button>
         </div>
-
     </div>
 
 </template>
 <script>
-import EditorField from './EditorField.vue';
-import Vue from "vue";
+
 export default {
-    components: { EditorField },
     data: function () {
         return {
             editing: false,
-            product: {
-                id: 0,
-                name: "",
-                price: 0,
-            },
-            localBus: new Vue()
+            product: {}
         }
     },
     methods: {
@@ -36,16 +41,13 @@ export default {
             this.product = {
                 id: product.id,
                 name: product.name,
-                price: product.price
+                price: product.price,
+                category: product.category
             }
         },
         startCreate() {
             this.editing = false;
-            this.product = {
-                id: 0,
-                name: "",
-                price: 0
-            }
+            this.product = { }
         },
         save() {
             this.eventBus.$emit("complete", this.product);
@@ -57,20 +59,9 @@ export default {
         }
     },
     inject: ["eventBus"],
-    provide: function(){
-        return {
-            editingEventBus: this.localBus
-        }
-    },
     created(){
         this.eventBus.$on("create", this.startCreate);
         this.eventBus.$on("edit", this.startEdit);
-        this.localBus.$on("change", (change) => this.product[change.name] = change.value);
-    },
-    watch:{
-        product(newValue, oldValue){
-            this.localBus.$emit("target", newValue);
-        }
     }
 }
 </script>
