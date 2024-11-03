@@ -18,6 +18,14 @@ import ProductEditor from './components/ProductEditor.vue';
 
 export default {
   name: 'App',
-  components: { ProductDisplay, ProductEditor }
+  components: { ProductDisplay, ProductEditor },
+  provide: function () {
+    return {
+      colors: {
+        bg: "bg-secondary",
+        text: "text-white"
+      }
+    }
+  }
 }
 </script>
