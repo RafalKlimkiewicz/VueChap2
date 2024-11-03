@@ -35,7 +35,8 @@ export default {
   },
   provide: function () {
     return {
-      colors: this.reactiveColors
+      colors: this.reactiveColors,
+      labelFromatter: (value) => `Enter ${value}`
     }
   },
   methods: {
