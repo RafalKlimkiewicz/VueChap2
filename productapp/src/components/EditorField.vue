@@ -24,12 +24,10 @@ export default {
     },
     watch:{
         value(newValue){
-            console.log(`watch value new: ${newValue}`);
             this.editingEventBus.$emit("change", { name : this.editorFor, value: this.value})
         }
     },
     created(){
-        console.log(`created ${this.formattedLabel}`);
         this.editingEventBus.$on("target", (p) => this.value = p[this.editorFor])
     }
 }

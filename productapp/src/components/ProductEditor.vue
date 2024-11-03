@@ -32,8 +32,6 @@ export default {
     },
     methods: {
         startEdit(product) {
-            console.log(`start edit`);
-            console.log(product);
             this.editing = true;
             this.product = {
                 id: product.id,
@@ -42,7 +40,6 @@ export default {
             }
         },
         startCreate() {
-            console.log(`stare create`);
             this.editing = false;
             this.product = {
                 id: 0,
@@ -51,15 +48,10 @@ export default {
             }
         },
         save() {
-            console.log(`save`);
-
             this.eventBus.$emit("complete", this.product);
-
-            console.log(`End editing: ${JSON.stringify(this.product)}`);
             this.startCreate();
         },
         cancel() {
-            console.log(`cancel`);
             this.product = {};
             this.editing = false;
         }
@@ -77,10 +69,6 @@ export default {
     },
     watch:{
         product(newValue, oldValue){
-            console.log(`watch product new: ${newValue}, old: ${oldValue}`);
-            console.log("target:")
-            console.log(oldValue);
-            console.log(newValue);
             this.localBus.$emit("target", newValue);
         }
     }
