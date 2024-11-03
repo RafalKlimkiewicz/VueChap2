@@ -55,14 +55,14 @@ export default {
             this.editing = false;
         }
     },
-    provide: function () {
-        return {
-            colors: {
-                bg: "bg-light",
-                text: "text-danger"
-            }
-        }
-    }
+    // provide: function () {
+    //     return {
+    //         colors: {
+    //             bg: "bg-light",
+    //             text: "text-danger"
+    //         }
+    //     }
+    // }
 
 }
 </script>
