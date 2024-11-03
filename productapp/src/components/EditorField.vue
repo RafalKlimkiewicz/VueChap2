@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-    props: ["label"],
+    props: ["label", "editorFor"],
     data: function () {
         return {
             value: "",
@@ -19,7 +19,18 @@ export default {
         format: {
             from: "labelFromatter",
             default: () => (value) => `Default ${value}`
+        },
+        editingEventBus: "editingEventBus"
+    },
+    watch:{
+        value(newValue){
+            console.log(`watch value new: ${newValue}`);
+            this.editingEventBus.$emit("change", { name : this.editorFor, value: this.value})
         }
+    },
+    created(){
+        console.log(`created ${this.formattedLabel}`);
+        this.editingEventBus.$on("target", (p) => this.value = p[this.editorFor])
     }
 }
 </script>

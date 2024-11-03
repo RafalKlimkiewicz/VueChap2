@@ -6,4 +6,9 @@ Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
+  provide: function(){
+    return {
+      eventBus: new Vue()
+    }
+  }
 }).$mount('#app')
