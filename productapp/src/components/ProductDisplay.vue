@@ -35,8 +35,6 @@
 </template>
 <script>
 import Vue from "vue";
-import Axios from "axios";
-const baseUrl = "http://localhost:3500/products/";
 
 export default {
     data: function () {
@@ -56,13 +54,9 @@ export default {
             this.products.push(...newProducts);
         }
     },
-    inject: ["eventBus"],
-    created() {
-        Axios.get(baseUrl).then(resp => {
-            console.log(`Response HTTP: ${resp.status}, ${resp.statusText}`);
-            console.log(`Data response: ${resp.data.length} elements`);
-            this.processProducts(resp.data);
-        });
+    inject: ["eventBus", "restDataSource"],
+    async created() {
+        this.processProducts(await this.restDataSource.getProducts());
     }
 }
 </script>
