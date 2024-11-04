@@ -35,6 +35,8 @@
 </template>
 <script>
 import Vue from "vue";
+import Axios from "axios";
+const baseUrl = "http://localhost:3500/products/";
 
 export default {
     data: function () {
@@ -48,8 +50,19 @@ export default {
         },
         editProduct(product) {
             this.eventBus.$emit("edit", product);
+        },
+        processProducts(newProducts) { //trick to make sure vue detects changes..
+            this.products.splice(0);
+            this.products.push(...newProducts);
         }
     },
-    inject: ["eventBus"]
+    inject: ["eventBus"],
+    created() {
+        Axios.get(baseUrl).then(resp => {
+            console.log(`Response HTTP: ${resp.status}, ${resp.statusText}`);
+            console.log(`Data response: ${resp.data.length} elements`);
+            this.processProducts(resp.data);
+        });
+    }
 }
 </script>
