@@ -40,42 +40,19 @@
 import Vue from "vue";
 
 export default {
-    data: function () {
-        return {
-            products: []
+    computed:{
+        products(){
+            return this.$store.getters.filteredProducts(175);
         }
     },
     methods: {
         createNew() {
-            this.eventBus.$emit("create");
         },
         editProduct(product) {
-            this.eventBus.$emit("edit", product);
         },
-        async deleteProduct(product) {
-            await this.restDataSource.deleteProduct(product);
-            let index = this.products.findIndex(p => p.id == product.id);
-            this.products.splice(index, 1);
+        deleteProduct(product) {
+            this.$store.commit("deleteProduct", product);
         },
-        processProducts(newProducts) { //trick to make sure vue detects changes..
-            this.products.splice(0);
-            this.products.push(...newProducts);
-        },
-        async processComplete(product) {
-            let index = this.products.findIndex(p => p.id == product.id);
-            if (index == -1) {
-                await this.restDataSource.saveProduct(product);
-                this.products.push(product);
-            } else {
-                await this.restDataSource.updateProduct(product);
-                Vue.set(this.products, index, product);
-            }
-        }
-    },
-    inject: ["eventBus", "restDataSource"],
-    async created() {
-        this.processProducts(await this.restDataSource.getProducts());
-        this.eventBus.$on("complete", this.processComplete);
     }
 }
 </script>
