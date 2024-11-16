@@ -42,17 +42,22 @@ import Vue from "vue";
 export default {
     computed:{
         products(){
-            return this.$store.getters.filteredProducts(175);
+            return this.$store.state.products;
         }
     },
     methods: {
         createNew() {
+            this.$store.commit("selectProduct");
         },
         editProduct(product) {
+            this.$store.commit("selectProduct", product);
         },
         deleteProduct(product) {
-            this.$store.commit("deleteProduct", product);
+            this.$store.dispatch("deleteProductAction", product);
         },
+    },
+    created(){
+        this.$store.dispatch("getProductsAction");
     }
 }
 </script>
