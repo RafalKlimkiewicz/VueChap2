@@ -1,19 +1,11 @@
 <template>
   <div class="container-fluid">
-    <!-- <div class="row">
+    <div class="col">
       <div class="col text-center m-2">
-        <div class="btn-group btn-group-toggle">
-          <label class="btn btn-info" v-bind:class="{ active: (selected == 'table') }">
-            <input type="radio" v-model="selected" value="table" />
-            Table
-          </label>
-          <label class="btn btn-info" v-bind:class="{ active: (selected == 'editor') }">
-            <input type="radio" v-model="selected" value="editor" />
-            Editor
-          </label>
-        </div>
+        <button class="btn btn-primary" v-on:click="selectComponent('table')">Basic functions</button>
+        <button class="btn btn-primary" v-on:click="selectComponent('summary')">Advanced functions</button>
       </div>
-    </div> -->
+    </div>
     <div class="row">
       <div class="col">
         <component :is="selectedComponent"></component>
@@ -23,33 +15,50 @@
 </template>
 
 <script>
-import ProductDisplay from './components/ProductDisplay.vue';
-import ProductEditor from './components/ProductEditor.vue';
-import ErrorDisplay from './components/ErrorDisplay.vue';
-import { mapState } from 'vuex';
+import ProductDisplay from './components/ProductDisplay';
+import ProductEditor from './components/ProductEditor';
+import ErrorDisplay from './components/ErrorDisplay';
+import LoadingMessage from './components/LoadingMessage';
+
+const DataSummary = () => ({
+  component: import("./components/DataSummary"),
+  loading: LoadingMessage,
+  delay: 10
+});
+
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'App',
   components: {
     ProductDisplay,
     ProductEditor,
-    ErrorDisplay
+    ErrorDisplay,
+    DataSummary
   },
   created() {
     this.$store.dispatch("getProductsAction");
   },
-  // data: function () {
-  //   return {
-  //     selected: "table"
-  //   }
-  // },
+  methods: {
+    ...mapMutations({
+      selectComponent: "nav/selectComponent"
+    })
+  },
   computed: {
     ...mapState({
       selected: state => state.nav.selected
     }),
     selectedComponent() {
-      console.log(`selectedComponent: ${this.selected}`);
-      return this.selected == "table" ? ProductDisplay : ProductEditor;
+      switch (this.selected) {
+        case "table":
+          return ProductDisplay;
+        case "editor":
+          return ProductEditor;
+        case "summary":
+          return DataSummary;
+      }
+
+      return null;
     }
   }
 }
