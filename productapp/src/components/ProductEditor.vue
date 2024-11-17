@@ -36,14 +36,17 @@ export default {
         }
     },
     methods: {
-        save() {
-            this.$store.dispatch("saveProductAction", this.product)
+        async save() {
+            await this.$store.dispatch("saveProductAction", this.product)
+            this.$store.commit("nav/selectComponent", "table");
             this.product = {};
         },
         cancel() {
             this.$store.commit("selectProduct");
+            this.$store.commit("nav/selectComponent", "table");
+
         },
-        selectedProduct(selectedProduct){
+        selectProduct(selectedProduct){
             if (selectedProduct == null) {
                     this.editing = false;
                     this.product = {};

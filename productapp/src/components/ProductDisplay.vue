@@ -24,7 +24,6 @@
                 </tr>
                 <tr v-if="products.length == 0">
                     <td colspan="5" class="text-center">No data</td>
-
                 </tr>
             </tbody>
         </table>
@@ -37,7 +36,6 @@
     </div>
 </template>
 <script>
-import Vue from "vue";
 import { mapActions, mapMutations, mapState , mapGetters} from "vuex";
 
 export default {
@@ -53,9 +51,19 @@ export default {
         })
     },
     methods: {
+        editProduct(product){
+            this.selectProduct(product);
+            this.selectComponent("editor");
+        },
+        createNew(){
+            this.selectProduct();
+            this.selectComponent("editor");
+        },
         ...mapMutations({
-            editProduct: "selectProduct",
-            createNew: "selectProduct",
+            selectProduct: "selectProduct",
+            selectComponent: "nav/selectComponent",
+            //editProduct: "selectProduct",
+            //createNew: "selectProduct",
             setEditButtonColor: "prefs/setEditButtonColor",
             setDeleteButtonColor: "prefs/setDeleteButtonColor"
         }),
