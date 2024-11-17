@@ -18,5 +18,8 @@ import ErrorDisplay from './components/ErrorDisplay.vue';
 export default {
   name: 'App',
   components: { ProductDisplay, ProductEditor, ErrorDisplay },
+  created(){
+    this.$store.dispatch("getProductsAction");
+  }
 }
 </script>

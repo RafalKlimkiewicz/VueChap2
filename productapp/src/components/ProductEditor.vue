@@ -27,7 +27,7 @@
 
 </template>
 <script>
-
+let unwatcher;
 export default {
     data: function () {
         return {
@@ -42,21 +42,26 @@ export default {
         },
         cancel() {
             this.$store.commit("selectProduct");
-        }
-    },
-    created() {
-        this.$store.watch(state => state.selectedProduct,
-            (newValue, oldValue) => {
-                if (newValue == null) {
+        },
+        selectedProduct(selectedProduct){
+            if (selectedProduct == null) {
                     this.editing = false;
                     this.product = {};
                 } else {
                     this.editing = true;
                     this.product = {};
 
-                    Object.assign(this.product, newValue);
+                    Object.assign(this.product, selectedProduct);
                 }
-            });
+        }
+    },
+    created() {
+        unwatcher = this.$store.watch(state => state.selectProduct, this.selectProduct);
+
+        this.selectProduct(this.$store.state.selectedProduct);
+    },
+    beforeDestroy(){
+        unwatcher();
     }
 }
 </script>

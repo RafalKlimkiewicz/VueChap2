@@ -1,6 +1,6 @@
 <template>
     <div>
-        <table class="table table-sm table-stroped table-bordered">
+        <table class="table table-sm table-bordered" v-bind:class="{'table-striped': useStripedTable}">
             <tr>
                 <th>ID</th>
                 <th>Nazwa</th>
@@ -14,10 +14,10 @@
                     <td>{{ p.category }}</td>
                     <td>{{ p.price }}</td>
                     <td>
-                        <button class="btn btn-sm btn-primary" v-on:click="editProduct(p)">
+                        <button class="btn btn-sm" v-bind:class="editClass" v-on:click="editProduct(p)">
                             Edit
                         </button>
-                        <button class="btn btn-sm btn-danger" v-on:click="deleteProduct(p)">
+                        <button class="btn btn-sm" v-bind:class="deleteClass" v-on:click="deleteProduct(p)">
                             Delete
                         </button>
                     </td>
@@ -30,7 +30,7 @@
         </table>
 
         <div class="text-center">
-            <button class="btn btn-primary" v-on:click="createNew">
+            <button class="btn btn-primary" v-on:click="createNew()">
                 Create New
             </button>
         </div>
@@ -38,26 +38,36 @@
 </template>
 <script>
 import Vue from "vue";
+import { mapActions, mapMutations, mapState , mapGetters} from "vuex";
 
 export default {
     computed:{
-        products(){
-            return this.$store.state.products;
-        }
+        ...mapState(["products"]),
+        ...mapState({
+            useStripedTable: state => state.prefs.stripedTable
+        }),
+        ...mapGetters({
+            tableClass : "prefs/tableClass", 
+            editClass: "prefs/editClass",
+            deleteClass: "prefs/deleteClass"
+        })
     },
     methods: {
-        createNew() {
-            this.$store.commit("selectProduct");
-        },
-        editProduct(product) {
-            this.$store.commit("selectProduct", product);
-        },
-        deleteProduct(product) {
-            this.$store.dispatch("deleteProductAction", product);
-        },
+        ...mapMutations({
+            editProduct: "selectProduct",
+            createNew: "selectProduct",
+            setEditButtonColor: "prefs/setEditButtonColor",
+            setDeleteButtonColor: "prefs/setDeleteButtonColor"
+        }),
+        ...mapActions({
+            getProducts: "getProductsAction",
+            deleteProducts: "deleteProductAction"
+        })
     },
     created(){
-        this.$store.dispatch("getProductsAction");
+        //this.getProducts();
+        this.setEditButtonColor(false);
+        this.setDeleteButtonColor(false);
     }
 }
 </script>
