@@ -24,7 +24,8 @@
             <button class="btn btn-primary" v-on:click="save">
                 {{ editing ? "Save" : "Create" }}
             </button>
-            <router-link v-bind:to="{name: 'table'}" class="btn btn-secondary">Cancel</router-link>
+            <router-link v-bind:to="{ name: 'table' }" class="btn btn-secondary">Cancel</router-link>
+            <router-link v-if="editing" v-bind:to="nextUrl" class="btn btn-info">Next</router-link>
         </div>
     </div>
 
@@ -38,6 +39,20 @@ export default {
             product: {}
         }
     },
+    computed: {
+        nextUrl() {
+            if (this.product.id != null && this.$store.state.products != null) {
+                let index = this.$store.state.products.findIndex(p => p.id == this.product.id);
+
+                let target = index < this.$store.state.products.length - 1 ? index + 1 : 0;
+
+                return `/edit/${this.$store.state.products[target].id}`;
+            }
+
+            return "/edit";
+        }
+
+    },
     methods: {
         async save() {
             await this.$store.dispatch("saveProductAction", this.product)
@@ -46,27 +61,31 @@ export default {
             });
             this.product = {};
         },
-        selectProduct(){
-            if (this.$route.params.op == "create") {
-                    this.editing = false;
-                    this.product = {};
-                } else {
-                    let productId = this.$route.params.id;
-                    let selectedProduct = this.$store.state.products.find(p => p.id == productId);
-                    this.editing = true;
-                    this.product = {};
+        selectProduct(route) {
+            if (route.params.op == "create") {
+                this.editing = false;
+                this.product = {};
+            } else {
+                let productId = route.params.id;
+                let selectedProduct = this.$store.state.products.find(p => p.id == productId);
+                this.editing = true;
+                this.product = {};
 
-                    Object.assign(this.product, selectedProduct);
-                }
+                Object.assign(this.product, selectedProduct);
+            }
         }
     },
     created() {
-        unwatcher = this.$store.watch(state => state.products, this.selectProduct);
+        unwatcher = this.$store.watch(state => state.products, () => this.selectProduct(this.$route));
 
-        this.selectProduct();
+        this.selectProduct(this.$route);
     },
-    beforeDestroy(){
+    beforeDestroy() {
         unwatcher();
+    },
+    beforeRouteUpdate(to, from, next){
+        this.selectProduct(to);
+        next();
     }
 }
 </script>
