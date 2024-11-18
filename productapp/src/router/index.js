@@ -6,14 +6,23 @@ import ProductEditor from "../components/ProductEditor";
 Vue.use(VueRouter);
 
 export default new VueRouter({
+    mode: "history",
     routes: [
         {
             path: "/",
             component: ProductDisplay
         },
         {
-            path: "/edit",
+            path: "/edit/:id",
             component: ProductEditor
+        },
+        {
+            path: "/create",
+            component: ProductEditor
+        },
+        {
+            path: "*",
+            redirect: "/"
         }
     ]
 })

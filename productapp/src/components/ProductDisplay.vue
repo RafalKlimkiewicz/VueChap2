@@ -1,6 +1,6 @@
 <template>
     <div>
-        <table class="table table-sm table-bordered" v-bind:class="{'table-striped': useStripedTable}">
+        <table class="table table-sm table-bordered" v-bind:class="{ 'table-striped': useStripedTable }">
             <tr>
                 <th>ID</th>
                 <th>Nazwa</th>
@@ -14,9 +14,7 @@
                     <td>{{ p.category }}</td>
                     <td>{{ p.price }}</td>
                     <td>
-                        <button class="btn btn-sm" v-bind:class="editClass" v-on:click="editProduct(p)">
-                            Edit
-                        </button>
+                        <router-link v-bind:to=" '/edit/' + p.id "  v-bind:class="editClass" class="btn btn-sm"> Edit </router-link>
                         <button class="btn btn-sm" v-bind:class="deleteClass" v-on:click="deleteProduct(p)">
                             Delete
                         </button>
@@ -29,34 +27,32 @@
         </table>
 
         <div class="text-center">
-            <button class="btn btn-primary" v-on:click="createNew()">
-                Create New
-            </button>
+            <router-link to="/create" class="btn btn-primary">Create New</router-link>
         </div>
     </div>
 </template>
 <script>
-import { mapActions, mapMutations, mapState , mapGetters} from "vuex";
+import { mapActions, mapMutations, mapState, mapGetters } from "vuex";
 
 export default {
-    computed:{
+    computed: {
         ...mapState(["products"]),
         ...mapState({
             useStripedTable: state => state.prefs.stripedTable
         }),
         ...mapGetters({
-            tableClass : "prefs/tableClass", 
+            tableClass: "prefs/tableClass",
             editClass: "prefs/editClass",
             deleteClass: "prefs/deleteClass"
         })
     },
     methods: {
-        editProduct(product){
+        editProduct(product) {
             this.selectProduct(product);
             //this.selectComponent("editor");
             this.$router.push("/edit");
         },
-        createNew(){
+        createNew() {
             this.selectProduct();
             //this.selectComponent("editor");
             this.$router.push("/edit");
@@ -75,7 +71,7 @@ export default {
             deleteProducts: "deleteProductAction"
         })
     },
-    created(){
+    created() {
         //this.getProducts();
         this.setEditButtonColor(true);
         this.setDeleteButtonColor(false);

@@ -1,5 +1,8 @@
 <template>
     <div>
+        <h3 class="btn-primary text-center text-white p-2">
+            {{ editing ? "Edit" : "Create" }}
+        </h3>
         <div class="form-group">
             <label>id</label>
             <input class="form-control" v-model="product.id" />
@@ -22,7 +25,6 @@
                 {{ editing ? "Save" : "Create" }}
             </button>
             <router-link to="/" class="btn btn-secondary">Cancel</router-link>
-            <!-- <button class="btn btn-secondary" v-on:click="cancel">Cancel</button> -->
         </div>
     </div>
 
@@ -39,19 +41,16 @@ export default {
     methods: {
         async save() {
             await this.$store.dispatch("saveProductAction", this.product)
-            //this.$store.commit("nav/selectComponent", "table");
             this.$store.push("/");
             this.product = {};
         },
-        // cancel() {
-        //     this.$store.commit("selectProduct");
-        //     this.$store.commit("nav/selectComponent", "table");
-        // },
-        selectProduct(selectedProduct){
-            if (selectedProduct == null) {
+        selectProduct(){
+            if (this.$route.path == "/create") {
                     this.editing = false;
                     this.product = {};
                 } else {
+                    let productId = this.$route.params.id;
+                    let selectedProduct = this.$store.state.products.find(p => p.id == productId);
                     this.editing = true;
                     this.product = {};
 
@@ -60,9 +59,9 @@ export default {
         }
     },
     created() {
-        unwatcher = this.$store.watch(state => state.selectProduct, this.selectProduct);
+        unwatcher = this.$store.watch(state => state.products, this.selectProduct);
 
-        this.selectProduct(this.$store.state.selectedProduct);
+        this.selectProduct();
     },
     beforeDestroy(){
         unwatcher();
