@@ -21,7 +21,8 @@
             <button class="btn btn-primary" v-on:click="save">
                 {{ editing ? "Save" : "Create" }}
             </button>
-            <button class="btn btn-secondary" v-on:click="cancel">Cancel</button>
+            <router-link to="/" class="btn btn-secondary">Cancel</router-link>
+            <!-- <button class="btn btn-secondary" v-on:click="cancel">Cancel</button> -->
         </div>
     </div>
 
@@ -38,14 +39,14 @@ export default {
     methods: {
         async save() {
             await this.$store.dispatch("saveProductAction", this.product)
-            this.$store.commit("nav/selectComponent", "table");
+            //this.$store.commit("nav/selectComponent", "table");
+            this.$store.push("/");
             this.product = {};
         },
-        cancel() {
-            this.$store.commit("selectProduct");
-            this.$store.commit("nav/selectComponent", "table");
-
-        },
+        // cancel() {
+        //     this.$store.commit("selectProduct");
+        //     this.$store.commit("nav/selectComponent", "table");
+        // },
         selectProduct(selectedProduct){
             if (selectedProduct == null) {
                     this.editing = false;

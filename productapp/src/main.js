@@ -4,7 +4,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { RestDataSource } from "./restDataSource";
 
 import store from "./store";
-
+import router from "./router";
 
 Vue.config.productionTip = false;
 
@@ -14,6 +14,7 @@ new Vue({
     eventBus: new Vue()
   },
   store,
+  router,
   provide: function () {
     return {
       eventBus: this.eventBus,
