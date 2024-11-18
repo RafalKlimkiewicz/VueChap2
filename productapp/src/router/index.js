@@ -9,17 +9,20 @@ export default new VueRouter({
     mode: "history",
     routes: [
         {
+            name: "table",
             path: "/",
-            component: ProductDisplay
+            component: ProductDisplay,
+            alias: "/lsit"
         },
         {
-            path: "/edit/:id",
+            name: "editor",
+            path: "/:op(create|edit)/:id(\\d+)?",
             component: ProductEditor
         },
-        {
-            path: "/create",
-            component: ProductEditor
-        },
+        // {
+        //     path: "/create",
+        //     component: ProductEditor
+        // },
         {
             path: "*",
             redirect: "/"

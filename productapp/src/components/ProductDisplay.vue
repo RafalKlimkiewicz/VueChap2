@@ -14,7 +14,10 @@
                     <td>{{ p.category }}</td>
                     <td>{{ p.price }}</td>
                     <td>
-                        <router-link v-bind:to=" '/edit/' + p.id "  v-bind:class="editClass" class="btn btn-sm"> Edit </router-link>
+                        <router-link v-bind:to="{ name: 'editor', params: { op: 'edit', id: p.id } }"
+                            v-bind:class="editClass" class="btn btn-sm">
+                            Edit
+                        </router-link>
                         <button class="btn btn-sm" v-bind:class="deleteClass" v-on:click="deleteProduct(p)">
                             Delete
                         </button>
@@ -27,7 +30,9 @@
         </table>
 
         <div class="text-center">
-            <router-link to="/create" class="btn btn-primary">Create New</router-link>
+            <!-- <router-link to="/create" class="btn btn-primary">Create New</router-link> -->
+            <router-link v-bind:to="{ name: 'editor', params: { op: 'create' } }" class="btn btn-primary">Create
+                New</router-link>
         </div>
     </div>
 </template>
@@ -49,20 +54,14 @@ export default {
     methods: {
         editProduct(product) {
             this.selectProduct(product);
-            //this.selectComponent("editor");
             this.$router.push("/edit");
         },
         createNew() {
             this.selectProduct();
-            //this.selectComponent("editor");
             this.$router.push("/edit");
         },
         ...mapMutations({
             selectProduct: "selectProduct",
-            //selectComponent: "nav/selectComponent",
-
-            //editProduct: "selectProduct",
-            //createNew: "selectProduct",
             setEditButtonColor: "prefs/setEditButtonColor",
             setDeleteButtonColor: "prefs/setDeleteButtonColor"
         }),
@@ -72,7 +71,6 @@ export default {
         })
     },
     created() {
-        //this.getProducts();
         this.setEditButtonColor(true);
         this.setDeleteButtonColor(false);
     }
