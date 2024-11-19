@@ -12,17 +12,13 @@ export default new VueRouter({
             name: "table",
             path: "/",
             component: ProductDisplay,
-            alias: "/lsit"
+            alias: "/list"
         },
         {
             name: "editor",
             path: "/:op(create|edit)/:id(\\d+)?",
             component: ProductEditor
         },
-        // {
-        //     path: "/create",
-        //     component: ProductEditor
-        // },
         {
             path: "*",
             redirect: "/"

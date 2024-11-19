@@ -70,9 +70,9 @@ export default {
             deleteProducts: "deleteProductAction"
         })
     },
-    created() {
-        this.setEditButtonColor(true);
-        this.setDeleteButtonColor(false);
-    }
+    // created() {
+    //     this.setEditButtonColor(true);
+    //     this.setDeleteButtonColor(false);
+    // }
 }
 </script>
