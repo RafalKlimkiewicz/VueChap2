@@ -67,12 +67,8 @@ export default {
         }),
         ...mapActions({
             getProducts: "getProductsAction",
-            deleteProducts: "deleteProductAction"
+            deleteProduct: "deleteProductAction"
         })
-    },
-    // created() {
-    //     this.setEditButtonColor(true);
-    //     this.setDeleteButtonColor(false);
-    // }
+    }
 }
 </script>
