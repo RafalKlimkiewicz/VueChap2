@@ -28,7 +28,7 @@ router.beforeEach((to, from, next) =>{
     }
 });
 
-router.beforeEach((to, from, next) =>{
+router.beforeResolve((to, from, next) =>{
     if(to.path == "/named/tableright"){
         next({
             name: "editor",
