@@ -6,20 +6,17 @@
           <router-link tag="button" to="/products" active-class="btn-info" class="btn btn-primary">
             Products
           </router-link>
-        </div>
-        <div class="btn-group">
           <router-link tag="button" to="/preferences" active-class="btn-info" class="btn btn-primary">
             Preferences
           </router-link>
-        </div>
-        <div class="btn-group">
           <router-link tag="button" to="/named/tableleft" active-class="btn-info" class="btn btn-primary">
             Tab on the left
           </router-link>
-        </div>
-        <div class="btn-group">
           <router-link tag="button" to="/named/tableright" active-class="btn-info" class="btn btn-primary">
             Tab on the right
+          </router-link>
+          <router-link tag="button" to="/filter/All" active-class="btn-info" class="btn btn-primary">
+            Filtered data
           </router-link>
         </div>
       </div>
