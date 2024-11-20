@@ -23,6 +23,9 @@
     </div>
     <div class="row">
       <div class="col m-2">
+        <h3 class="bg-warning text-whie text-center p-2" v-if="componentLoading">
+          Loading Component....
+        </h3>
         <router-view></router-view>
       </div>
     </div>
@@ -30,8 +33,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'App',
+  computed: {
+    ...mapState(["componentLoading"]),
+  },
   created() {
     this.$store.dispatch("getProductsAction");
   },
