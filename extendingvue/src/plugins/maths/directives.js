@@ -1,5 +1,5 @@
 export default {
-    borderize: function (el, binding) {
+    bordersize: function (el, binding) {
         if (binding.value) {
             el.classList.add("border", "border-dark");
         } else {

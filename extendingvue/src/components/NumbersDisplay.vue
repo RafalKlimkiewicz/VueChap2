@@ -10,8 +10,7 @@
                 <div class="col">
                     <input v-colorize:bg-info="second > 30" class="form-control" v-model.number="second" />
                 </div>
-                <div v-colorize.bg.text="total > 50" class="col h3">= {{ total }}</div>
-                <div data-bg-class="true" data-text-class="true" class="col h3">= {{ total }}</div>
+                <div v-colorize.bg.text="total > 50" class="col h3">= {{ total | currency }}</div>
             </div>
         </div>
     </div>
@@ -20,6 +19,7 @@
 <script>
 //import Colorize from "../directives/colorize";
 import mixin from "../mixmins/numbersMixin";
+import Vue from "vue";
 
 export default {
     data: function () {
@@ -30,7 +30,7 @@ export default {
     },
     computed: {
         total() {
-            return this.first + this.second;
+            return Vue.sumValues(this.first, this.second);
         }
     },
     mixins: [mixin]

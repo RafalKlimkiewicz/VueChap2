@@ -4,6 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 Vue.config.productionTip = false
 
+import MathsPlugin from "./plugins/maths";
+
+Vue.use(MathsPlugin);
+
 new Vue({
   render: h => h(App),
 }).$mount('#app')

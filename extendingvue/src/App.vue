@@ -2,7 +2,7 @@
   <div class="m-2">
     <numbers />
     <substraction />
-    
+    <mathsComponent operation="Divide" firstVal="10" secondVal="20" />
   </div>
 </template>
 
