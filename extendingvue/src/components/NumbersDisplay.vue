@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import Colorize from "../directives/colorize";
+//import Colorize from "../directives/colorize";
+import mixin from "../mixmins/numbersMixin";
 
 export default {
     data: function () {
@@ -32,8 +33,6 @@ export default {
             return this.first + this.second;
         }
     },
-    directives:{
-        Colorize
-    }
+    mixins: [mixin]
 }
 </script>
