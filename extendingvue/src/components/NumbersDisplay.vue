@@ -23,7 +23,7 @@ import Colorize from "../directives/colorize";
 export default {
     data: function () {
         return {
-            first: 10,
+            first: 50,
             second: 20,
         }
     },
