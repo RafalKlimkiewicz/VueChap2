@@ -11,6 +11,7 @@
                     <input v-colorize:bg-info="second > 30" class="form-control" v-model.number="second" />
                 </div>
                 <div v-colorize.bg.text="total > 50" class="col h3">= {{ total }}</div>
+                <div data-bg-class="true" data-text-class="true" class="col h3">= {{ total }}</div>
             </div>
         </div>
     </div>
